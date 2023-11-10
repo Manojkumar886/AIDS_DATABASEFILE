@@ -1,0 +1,373 @@
+Datatypes in Sql
+----------------------
+
+Numeric Datatype
+------------------------
+-
+int -----digit count int(3)
+bigint
+
+
+double
+float
+
+
+String Datatype
+----------------------
+char 
+varchar(size)---->size=255
+
+go  to browser--->search to 
+
+http://localhost/phpmyadmin
+
+
+create table table_name(columnname datatype[size],.......);
+
+
+Database creation:
+
+create database database_name;
+
+
+Implementation of SQL
+-------------------------------
+
+DDL
+------
+create ,alter, drop,add,modify,truncate
+
+
+
+
+
+table creation:
+1.create 
+----------
+ate table Student_Details(student_name varchar(255)not null,student_age int(3)not null,student_place varchar(255)not null,student_percentage double not null,student_mobile bigint not null);
+
+
+2.Alter
+---------
+1.add
+------
+alter table tablename add columnname datatype[size] not null;
+alter table student_details add student_department varchar(255)not null;
+
+add primarykey
+---------------------
+alter table student_details add PRIMARY KEY (`student_rollno`);
+
+autoincrement
+-------------------
+
+alter table tablename change `oldcolumnname` columnname int [8]  auto_increment;
+
+alter table studentdetails change `student_rollno` `student_registerno` int(8) auto_increment; 
+
+2.change
+-----------
+alter table tablename mentionyourcolumename  newcolumnname datatype[size] not null;
+alter table student_details CHANGE `student_mobile` `student_mobileno` bigint null;
+
+
+3.drop
+--------
+column drop;
+alter table tablename drop column columnname;
+alter table studentdetails drop column `student_percentage`;
+constraints
+--------------
+not null
+unique
+primary 
+foreign key
+default
+check
+
+
+create table employeedetails(
+emp_id int(5) not null PRIMARY KEY,
+emp_name varchar(200) not null,
+emp_mobileno bigint null,
+emp_age int(3) not null CHECK (emp_age>=18),
+emp_cmpyname varchar(200) not null DEFAULT 'ZealousTechCorp',
+emp_email varchar(200) not null UNIQUE);
+
+
+ 
+Data Manipulation Languages-DML
+-------------------------------------------------
+insert, update ,delete;
+
+
+
+INSERT
+-----------
+
+insert into tablename  values (.........);
+insert  into student_details VALUES('Manojkumar',23,'Namakkal',9768767567,'MCA',1001);
+
+insert  into `student_details`
+(`student_name`,`student_age`,`student_place`,`student_department`,`student_mobileno`)
+VALUES
+( 'Haritha',21,'Erode','Radiology',8989765677);
+
+
+insert into `student_details` (`student_name`,`student_age`,`student_place`,`student_department`,`student_mobileno`) VALUES ( 'Pavithra',22,'Salem','BBA',9090976567), ('Annamalai',27,'Salem','CSE',7070898767), ('Razak',31,'Chennai','ECE',5678899090), ('Geetha',41,'Namakkal','MSC',9089786756);
+insert into tablename ( column1,column2,column3)
+values 
+(value 1, value2 ,value 3);
+
+
+UPDATE
+------------
+
+update tablename set  column='Newvalue'  where columname=value;
+
+update student_details 
+set `student_age`=24,`student_department`='MBA'
+where `student_name`='Pavithra';
+
+DELETE
+------------
+
+delete from tablename  where studentname='pavithra';
+
+
+
+DQL-Data Query Languages
+-------------------------------------
+Select 
+-------
+1. Display All Datas
+-------------------------
+Select *  from tablename;
+
+2.DISTINCT-return only without duplicates values
+----------------
+select distinct student_place from student_details;
+
+3.COUNT-list total member of count
+-----------
+select count(*) from student_details;
+
+4.ALIAS- changing a column name in runtime execution
+------------
+select count(*) as totalmembers from studentdetails;
+
+5.WHERE-select all with condition
+-------------
+select * from studentdetails where student_place='Namakkal';
+
+6.AND-based on two condition
+--------
+select * from student_details where `student_age`>=30 AND `student_place`='Namakkal';
+
+7.NOT-
+--------
+SELECT * FROM `student_details` where NOT `student_age`>=25;
+
+8.BETWEEN
+----------------
+SELECT * FROM `student_details` WHERE `student_registerno` BETWEEN 1001 AND 1004;
+
+9.OR
+-------
+SELECT * FROM `student_details` WHERE `student_name`='Manojkumar' OR `student_age`>=25;
+
+10.ORDER BY
+--------------------
+SELECT * FROM `student_details` ORDER BY `student_name`;
+
+11.IN
+-------
+select * from Tablename where `studentplace` IN (value1,value2);
+select * from student_details 
+where `student_place` 
+IN ('Salem','Chennai');
+
+12.LIMIT
+-------------
+select * from studentdetails LIMIT 2;
+
+oracle:
+
+select TOP 3 from  studentdetails;
+
+
+13.LIKE
+------------
+select * from studentdetails where `Student_Name`  LIKE ' a%
+select * from student_details WHERE `student_name` LIKE '%a';
+
+14.MIN
+----------
+select min(student_age) from student_Details;
+
+Same as min(),max(),avg(),sum()
+
+
+
+
+
+
+
+GROUP BY
+----------------
+with using aggregate Function.( count(),max(),min(),avg(),sum())
+select count(*) from tablename;
+
+select count(*) ,student_place 
+from student_details
+GROUP BY student_place;
+
+HAVING
+-------------
+
+ select count(*) ,student_place 
+from student_details
+GROUP BY student_place
+HAVING studentplace='Salem';
+
+
+
+JOIN
+-------
+
+One row is combined in one or more tables.
+
+one table column details
+------------------------------
+Table Name-StudentDetails
+
+Column Name-Stud_Id
+			Stud_Name
+			Stud_MailId
+			Stud_Contact
+			Stud_Dept
+			Stud_Place
+
+Another one table 
+-----------------------
+Table name -TechnologyDetails
+ColumnName -Tech_Id
+			-Tech_Name
+			-Tech_Inst
+			-Tech_City
+			_Stud_Id
+
+
+
+
+INNER JOIN
+----------------
+select studentdetails.stud_id,studentdetails.stud_name,studentdetails.stud_place,technologydetails.tech_name,technologydetails.tech_city 
+from studentdetails 
+INNER JOIN technologydetails 
+ON studentdetails.stud_id = technologydetails.stud_id;
+
+
+LEFT JOIN
+RIGHT JOIN
+FULL JOIN
+
+
+DCL-Data Control Langauges
+-------
+PRIVILEGES
+-------------------
+SELECT,INSERT,UPDATE,DELETE,ALTER,DROP,UPDATE,ALL
+
+GRANT
+-----------
+syntex:
+grant all privileges ON tablename TO USERNAME;
+Ex:1
+grant all privileges ON studentdetails TO user;
+EX:2
+grant select,alter,drop  ON technologies TO Manoj;
+Show me my table Grants
+----------------------------------
+SHOW GRANTS FOR  'Amit'@'localhost'; 
+REVOKE
+-------------
+syntex:
+REVOKE privilege ON tablename TO Username;
+EX1:
+Revoke  select ,alter On student TO Admin;
+
+TASK
+--------
+database name -MCE_StaffsList
+
+Table Name -Staff_Details
+
+column Name-	Staff_Idno     ------>Change to Staff_IdentificationNO----->PrimaryKEY and AUTO_INCREMENT
+				Staff_Name		-------->NOTNULL
+				Staff_Native		-------->NULL
+				Staff_Department  --------->NOTNULL
+				Staff_DeptId			-------NOTNULL   
+				Staff_ContactNo		------->UNIQUE
+
+Staff_Details Count 10 (working to all select performance) 
+
+
+
+
+TCL-Transaction Control Language;
+
+
+Commit
+Rollback
+Savepoint
+
+
+
+insert into table values (1,'manoj',MCA);
+
+Commit
+-----------
+commit;
+Savepoint
+-------------
+insert into student values(1,"Manoj","MCA");
+insert into student values(2,"Annamalai',"CSE");
+insert into student values(3,"Jack","Englis");
+savpoint freshers;
+
+update student set studentname="Kavi" where studentId=3;
+savepoint updation;
+
+delete from student where studenid=3;
+savepoint currentpeople;
+Rollback
+-------------
+rollback to updation;
+
+update student_data set student_age=22 where student_age=21;
+alter student_data change student_age student_percentage;
+
+foreign KEY
+create a table with studentdetails one column is assigned primary key that column accessed to foreigh key
+perforamnce.
+syntex:
+---------
+create table tablename (column1 ,column 2,column3 (same as firsttable primary key columnname),
+foreign key (currentclass columnname same as anothertable column)
+reference anothertablename(anothertablename primary key columnname));
+
+create table deptdetails (dept_id int(8)not null,dept_name ,stud_id,
+foreign key (stud_id)
+reference studentdetails(stud_id));
+
+Studentdetails values						departmentdetails
+----------------------------						--------------------------
+101,manoj,Chennai						1001,CSE,101 ------>Added SuccessFully
+102,Haritha,Pondi						1002,MCA,104------>Added Successfully
+103,Pavi,Hosur							1004,MBA,105------>Not added (student not available in
+104,Swetha,Namakkal													 studenttable)
+
+
+
+
