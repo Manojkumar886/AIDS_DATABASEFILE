@@ -370,4 +370,35 @@ Studentdetails values						departmentdetails
 
 
 
+github connection
+------------------------
+download git software
+(https://git-scm.com/downloads)
+
+login github 
+----------------
+git to github connection
+-------------------------------
+git config --global user.name "githubusername"
+
+git config --global user.email "githubemailid"
+
+check your username and emailid
+1.git config --global user.name
+2.git config --global user.email
+
+connect your files in github
+------------------------------------
+1.go to your folder(inside yourfolder)
+2.rightclick--->choose git bash
+3.git init---->check your folder---hidden git file is created
+4.git status---->check your status
+5.git add . ------->add your files in git software
+git to github process
+---------------------------
+6.git commit -m "any message pass to github"
+7.git remote add origin "repository link"
+8.git push origin master
+
+https://github.com/Manojkumar886/AIDS_DATABASEFILE
 
